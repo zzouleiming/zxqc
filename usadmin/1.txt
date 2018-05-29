@@ -1,0 +1,8 @@
+bak/
+lost+found/
+nginx-1.10.0/
+nginx_bak/
+public/
+srcbak/
+zxqc/
+zyx_image/

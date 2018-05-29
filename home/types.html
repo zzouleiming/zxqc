@@ -1,0 +1,121 @@
+<extend name="Home@Base/common" />
+<block name="body">
+  <div class="span9 page_message">
+    <section id="contents">
+    <include file="Home@Addons/_nav" /> 
+      <div class="tab-content">
+      	<div style="float:left; width:500px">
+  <form method="post" class="form-horizontal" action="{:U('WxTrip/save_types')}">
+          <div class="form-item cf">
+            <label class="item-label"> 标签名: </label>
+            <div class="controls">
+              <input type="text" value="{$data['title']}" class="text input-large" name="types[title]">
+            </div>
+          </div>
+            <div class="form-item cf">
+            <label class="item-label"> 标签颜色: </label>
+            <div class="controls">
+              <input type="text" value="{$data['tag_colour']}" class="text input-large" name="types[tag_colour]">
+            </div>
+          </div> 
+                   <div class="form-item cf">
+            <label class="item-label"> 标签类型: </label>
+            <div class="controls">
+    <select id="city" class="select" name="types[tag_type]">
+        <option value="0">默认无标签</option>
+        <volist name='data' id='type'>
+        <option value="{$type['id']}">{$type['lable_name']}</option>
+        </volist>
+       
+    </select>
+</div>
+</div>
+            <div class="form-item cf">
+            <label class="item-label"> 热度: </label>
+            <div class="controls">
+              <input type="text" value="{$data['tag_order']}" class="text input-large" name="types[tag_order]">
+        </div>
+</div>   
+
+          
+          <!--通用的微信预览模板-->
+            <!--头部标题栏-->
+            <!--鉴于样式title放进具体每块模块-->
+            <!--CSS模块-->
+            <div class="weixin-preview">
+                <p class="preview-tips">微信里回复“微旅游”的回复效果</p>
+                <div class="weixin-box">
+                <p class="weixin-title"></p>
+                <div class="weixin-cover"><img class="weixin-cover-pic" src=""/></div>
+                <p class="weixin-content">
+                    
+                </p>
+            </div>
+            </div>
+ 		  <div class="form-item form_bh" style="text-align:center">
+         	 <button type="submit" class="btn submit-btn ajax-post" target-form="form-horizontal">确 定</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+<script type="text/javascript">
+$('.tab-content').addClass('has-weixinpreivew');
+if($('input[name="title"]').val()!=undefined){
+	$('.weixin-title').html($('input[name="title"]').val());
+}else{
+	$('.weixin-title').html($('input[name="config[title]"]').val());
+}
+if($('textarea[name="content"]').val()!=undefined){
+	$('.weixin-content').html($('textarea[name="content"]').val());
+}else if($('textarea[name="intro"]').val()!=undefined){
+	$('.weixin-content').html($('textarea[name="config[intro]"]').val());
+	}else{
+	$('.weixin-content').html($('textarea[name="config[info]"]').val());	
+}
+var weixin_cover_picurl = $('#cover_id_picurl').next().find('img').attr('src');
+if(weixin_cover_picurl==undefined)weixin_cover_picurl=$('#cover_id_cover').next().find('img').attr('src');
+if($('#cover_id_cover').val()==undefined && $('#cover_id_picurl').val()==undefined){
+	$('.weixin-preview').hide();
+	}
+if(weixin_cover_picurl==undefined || weixin_cover_picurl==""){
+	$('.weixin-cover-pic').attr('src',"__IMG__/no_cover.png");
+}else{
+	$('.weixin-cover-pic').attr('src',weixin_cover_picurl);
+}
+
+
+$('input[name="config[title]"]').keyup(function(){
+	$('.weixin-title').html($(this).val());
+	});
+$('input[name="title"]').keyup(function(){
+	$('.weixin-title').html($(this).val());
+	});	
+$('textarea[name="content"]').keyup(function(){
+	$('.weixin-content').html($(this).val());
+	});
+$('textarea[name="info"]').keyup(function(){
+	$('.weixin-content').html($(this).val());
+	});
+$('textarea[name="config[info]"]').keyup(function(){
+	$('.weixin-content').html($(this).val());
+	});	
+$('textarea[name="des_jj"]').keyup(function(){
+	$('.weixin-content').html($(this).val());
+	});
+$('textarea[name="intro"]').keyup(function(){
+	$('.weixin-content').html($(this).val());
+	});	
+</script>  
+</block>
+<block name="script"> 
+  <script type="text/javascript" charset="utf-8">
+	$(function(){
+		//初始化上传图片插件
+		initUploadImg();
+		initUploadFile();
+		//支持tab
+		showTab();
+	})
+</script> 
+</block>
