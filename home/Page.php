@@ -28,6 +28,7 @@ class Page extends MY_Controller
 
     public function page_list($page_id='')
     {
+    	print_r(-----------------);die;
       if($page_id==''){
          $page_id=$this->input->post('page_id',true);
       }
